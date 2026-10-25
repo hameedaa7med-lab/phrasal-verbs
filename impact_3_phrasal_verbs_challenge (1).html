@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impact 3 - Phrasal Verbs Quest | T. Hameeda BuSakhar</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Fredoka & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            display: ['Fredoka', 'sans-serif'],
+            serif: ['Cinzel', 'serif']
+          },
+          colors: {
+            ocean: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+              950: '#082f49'
+            },
+            royal: {
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-chunky {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    /* 3D Chunky Game Buttons */
+    .btn-3d-blue {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      box-shadow: 0 6px 0 0 #0369a1, 0 10px 15px -3px rgba(2, 132, 199, 0.4);
+      transition: all 0.1s ease;
+    }
+    .btn-3d-blue:hover {
+      background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+      box-shadow: 0 6px 0 0 #1d4ed8, 0 12px 18px -3px rgba(37, 99, 235, 0.45);
+    }
+    .btn-3d-blue:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 0 #0369a1, 0 4px 6px -1px rgba(2, 132, 199, 0.4);
+    }
+
+    .btn-option-3d {
+      background: rgba(15, 23, 42, 0.75);
+      box-shadow: 0 5px 0 0 rgba(14, 165, 233, 0.35);
+      transition: all 0.12s ease-in-out;
+    }
+    .btn-option-3d:hover:not(:disabled) {
+      background: rgba(14, 165, 233, 0.2);
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 0 rgba(14, 165, 233, 0.5);
+    }
+    .btn-option-3d:active:not(:disabled) {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 0 rgba(14, 165, 233, 0.35);
+    }
+
+    /* Floating blue bubbles */
+    .floating-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(125, 211, 252, 0.4), rgba(2, 132, 199, 0.1));
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+      animation: floatMotion 12s infinite ease-in;
+      pointer-events: none;
+    }
+    @keyframes floatMotion {
+      0% { transform: translateY(105vh) translateX(0) scale(0.6); opacity: 0; }
+      20% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { transform: translateY(-15vh) translateX(30px) scale(1.15); opacity: 0; }
+    }
+
+    /* Pulse Glow */
+    @keyframes energeticPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5)); }
+      50% { transform: scale(1.06); filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.9)); }
+    }
+    .pulse-energetic {
+      animation: energeticPulse 2s infinite ease-in-out;
+    }
+
+    /* Printable Certificate Optimization */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #certificateModal, #certificateCard, #certificateCard * {
+        visibility: visible !important;
+      }
+      #certificateModal {
+        position: fixed !important;
+        inset: 0 !important;
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+      #certificateCard {
+        box-shadow: none !important;
+        border: 12px double #0284c7 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        page-break-inside: avoid;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-ocean-950 via-slate-900 to-ocean-900 min-h-screen text-slate-100 relative overflow-x-hidden flex flex-col justify-between selection:bg-ocean-500 selection:text-white">
+
+  <!-- Ambient Blue Orbs & Bubbles -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="floating-bubble w-20 h-20 left-[8%]" style="animation-duration: 9s; animation-delay: 0s;"></div>
+    <div class="floating-bubble w-32 h-32 left-[25%]" style="animation-duration: 13s; animation-delay: 2s;"></div>
+    <div class="floating-bubble w-16 h-16 left-[50%]" style="animation-duration: 8s; animation-delay: 4s;"></div>
+    <div class="floating-bubble w-24 h-24 left-[72%]" style="animation-duration: 11s; animation-delay: 1s;"></div>
+    <div class="floating-bubble w-28 h-28 left-[88%]" style="animation-duration: 14s; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Header & Instructor Bar -->
+  <header class="relative z-20 w-full bg-slate-950/70 backdrop-blur-xl border-b border-ocean-500/20 px-4 py-3 sm:py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      
+      <!-- Brand & Teacher Info -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-tr from-ocean-400 via-royal-600 to-ocean-700 rounded-2xl flex items-center justify-center text-xl sm:text-2xl shadow-lg shadow-ocean-500/30 border border-ocean-300/40">
+          ⚡
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-xl font-chunky font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-ocean-200 via-sky-300 to-white">
+              Impact 3 • Phrasal Verbs Quest
+            </h1>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-[11px] font-bold bg-ocean-500/20 text-ocean-300 rounded-full border border-ocean-400/30">
+              Bahrain Edition
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-ocean-200 font-medium flex items-center gap-1.5 mt-0.5">
+            <span class="text-slate-400">Created by:</span>
+            <span class="font-bold text-white bg-royal-700/60 px-2.5 py-0.5 rounded-lg border border-ocean-400/40 shadow-sm">
+              T. Hameeda BuSakhar
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Control Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="soundToggleBtn" onclick="toggleAudio()" class="px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-ocean-900 border border-ocean-500/30 text-xs sm:text-sm font-bold text-ocean-200 transition flex items-center gap-2 shadow-sm">
+          <span id="soundIcon" class="text-base">🔊</span>
+          <span class="hidden sm:inline" id="soundStatusText">Sound On</span>
+        </button>
+        <button onclick="openLeaderboard()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-ocean-500/20 hover:from-amber-500/30 hover:to-ocean-500/30 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-bold transition flex items-center gap-2 shadow-sm">
+          <span>👑</span>
+          <span class="hidden sm:inline">Leaderboard</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Game Stage -->
+  <main class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-grow flex items-center justify-center">
+
+    <!-- 1. LOGIN & STUDENT REGISTRATION SCREEN -->
+    <section id="loginScreen" class="w-full max-w-xl bg-slate-900/85 backdrop-blur-2xl border-2 border-ocean-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl text-center relative overflow-hidden">
+      <div class="absolute -top-24 -left-24 w-48 h-48 bg-ocean-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-royal-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 bg-gradient-to-br from-ocean-400 via-royal-500 to-ocean-700 rounded-3xl p-1 shadow-xl flex items-center justify-center text-4xl sm:text-5xl pulse-energetic border-2 border-ocean-200/50">
+        🚀
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-ocean-500/15 border border-ocean-400/30 rounded-full text-xs font-bold text-ocean-300 mb-3">
+        <span>📖 Impact 3 Student's Book & Workbook</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl font-chunky font-bold text-white mb-2 tracking-wide">
+        Phrasal Verbs Challenge
+      </h2>
+      <p class="text-slate-300 text-xs sm:text-sm mb-6 leading-relaxed max-w-md mx-auto">
+        Welcome, superstar! Test your vocabulary with <strong class="text-white">20 engaging questions</strong> prepared by 
+        <span class="text-ocean-300 font-bold underline decoration-ocean-400 decoration-wavy">Teacher Hameeda BuSakhar</span>. 
+        Earn an official certificate upon completion!
+      </p>
+
+      <!-- Registration Form -->
+      <div class="space-y-4 text-left mb-6">
+        <div>
+          <label class="block text-xs font-bold text-ocean-200 mb-1.5 uppercase tracking-wider">
+            Student Full Name:
+          </label>
+          <input type="text" id="studentNameInput" placeholder="e.g. Maryam Jassim Al-Kuwari"
+            class="w-full bg-slate-950/80 border-2 border-ocean-800 focus:border-ocean-400 rounded-2xl px-4 py-3.5 text-white placeholder-slate-500 outline-none text-sm sm:text-base transition font-medium">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-ocean-200 mb-1.5 uppercase tracking-wider">
+            Class Section (Select 1 to 8):
+          </label>
+          <div class="relative">
+            <select id="studentClassSelect" 
+              class="w-full bg-slate-950/80 border-2 border-ocean-800 focus:border-ocean-400 rounded-2xl px-4 py-3.5 text-white outline-none text-sm sm:text-base transition font-medium appearance-none cursor-pointer">
+              <option value="" disabled selected>Select your section (1 to 8)...</option>
+              <option value="Section 1">Section 1</option>
+              <option value="Section 2">Section 2</option>
+              <option value="Section 3">Section 3</option>
+              <option value="Section 4">Section 4</option>
+              <option value="Section 5">Section 5</option>
+              <option value="Section 6">Section 6</option>
+              <option value="Section 7">Section 7</option>
+              <option value="Section 8">Section 8</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ocean-400">
+              ▼
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validation Banner -->
+      <div id="loginError" class="hidden mb-4 p-3.5 bg-rose-500/20 border border-rose-500/40 text-rose-200 rounded-2xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2">
+        <span>⚠️</span>
+        <span>Please write your full name and choose your section (1 to 8)!</span>
+      </div>
+
+      <!-- Chunky Start Button -->
+      <button onclick="startGame()" class="btn-3d-blue w-full py-4 text-white font-chunky font-bold text-lg sm:text-xl rounded-2xl flex items-center justify-center gap-3">
+        <span>Start the Quest</span>
+        <span class="text-xl">⭐</span>
+      </button>
+
+      <!-- Rules Quick Bar -->
+      <div class="mt-6 pt-5 border-t border-ocean-500/20 grid grid-cols-3 gap-2 text-center text-[11px] sm:text-xs text-ocean-200/80 font-medium">
+        <div class="flex flex-col items-center gap-1">
+          <span class="text-base">🎯</span>
+          <span>20 Graded Tasks</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <span class="text-base">💡</span>
+          <span>2 Tries Per Task</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <span class="text-base">📜</span>
+          <span>Official Award</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. GAMEPLAY SCREEN (FULLY RESPONSIVE SPLIT DESKTOP & FLUID MOBILE) -->
+    <section id="gameScreen" class="w-full hidden space-y-4 max-w-5xl">
+      
+      <!-- Top HUD Header -->
+      <div class="bg-slate-900/90 backdrop-blur-xl border border-ocean-500/30 rounded-2xl p-3 sm:p-4 shadow-xl flex flex-wrap items-center justify-between gap-3">
+        
+        <!-- Student Info -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-ocean-500/20 border border-ocean-400/40 flex items-center justify-center text-xl text-ocean-300">
+            👩‍🎓
+          </div>
+          <div>
+            <div id="hudStudentName" class="font-bold text-white text-xs sm:text-sm leading-tight truncate max-w-[150px] sm:max-w-xs">
+              Student Name
+            </div>
+            <div id="hudStudentClass" class="text-[11px] sm:text-xs text-ocean-300 font-medium">
+              Grade 9
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="flex-1 min-w-[180px] max-w-xs mx-auto text-center order-3 sm:order-2">
+          <div class="flex justify-between text-[11px] sm:text-xs text-ocean-200 mb-1.5 font-bold">
+            <span>Progress</span>
+            <span id="hudProgressText">Question 1 of 20</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-3 p-0.5 border border-ocean-500/30 overflow-hidden shadow-inner">
+            <div id="progressBar" class="bg-gradient-to-r from-ocean-400 via-sky-400 to-royal-500 h-full rounded-full transition-all duration-500" style="width: 5%"></div>
+          </div>
+        </div>
+
+        <!-- Score & Attempts Remaining -->
+        <div class="flex items-center gap-2 order-2 sm:order-3">
+          <div class="bg-ocean-950/90 border border-ocean-400/30 px-3.5 py-1.5 rounded-xl text-center shadow-sm">
+            <span class="text-[10px] text-ocean-300 block font-bold uppercase tracking-wide">Score</span>
+            <span id="hudScore" class="text-base sm:text-xl font-chunky font-bold text-sky-300">0</span>
+          </div>
+          <div class="bg-slate-950/90 border border-ocean-500/20 px-3 py-1.5 rounded-xl text-center shadow-sm">
+            <span class="text-[10px] text-slate-400 block font-bold uppercase tracking-wide">Tries Left</span>
+            <span id="hudAttempts" class="text-xs sm:text-sm font-chunky font-bold text-amber-300">2 / 2</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Question Container (2-Column Grid on Laptop/Desktop, Single Column on Mobile) -->
+      <div class="bg-slate-900/90 backdrop-blur-2xl border-2 border-ocean-500/30 rounded-3xl p-4 sm:p-7 shadow-2xl relative overflow-hidden">
+        
+        <!-- Question Meta Header -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-ocean-500/20">
+          <div class="flex items-center gap-2">
+            <span id="questionDifficultyTag" class="px-2.5 py-1 text-xs font-chunky font-bold rounded-lg bg-ocean-500/20 text-ocean-300 border border-ocean-400/30">
+              Easy ⭐
+            </span>
+            <span id="questionTypeTag" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-royal-600/20 text-royal-200 border border-royal-500/30">
+              Multiple Choice
+            </span>
+          </div>
+          <span class="text-xs font-medium text-ocean-300/80">
+            Impact 3 (Bahrain Edition)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+          
+          <!-- Left Column: Visual Clue & Audio Pronunciation (Responsive) -->
+          <div class="md:col-span-5 flex flex-col justify-between space-y-3">
+            <div class="relative w-full h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden border-2 border-ocean-500/30 bg-slate-950 shadow-lg group">
+              <img id="questionImage" src="" alt="Illustration" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onerror="this.src='https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=600&q=80'">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none"></div>
+              <div id="imageCaption" class="absolute bottom-2.5 inset-x-2.5 text-center text-xs font-semibold text-white/95 bg-slate-950/80 py-1.5 px-2 rounded-xl backdrop-blur-md border border-white/10">
+                Context Illustration
+              </div>
+            </div>
+
+            <!-- Audio Actions (Always Accessible) -->
+            <div id="audioActionBox" class="w-full">
+              <button onclick="speakSentence(0.85)" class="w-full py-3 px-4 bg-gradient-to-r from-ocean-600 to-royal-600 hover:from-ocean-500 hover:to-royal-500 border border-ocean-300/40 rounded-2xl text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition shadow-md active:scale-95">
+                <span>🔊</span>
+                <span>Listen to Sentence (Native Pronunciation)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Question Title, Interactive Options & Feedback -->
+          <div class="md:col-span-7 flex flex-col justify-between space-y-4">
+            
+            <div class="bg-slate-950/60 p-4 sm:p-5 rounded-2xl border border-ocean-500/20 shadow-inner">
+              <div class="text-xs font-bold text-ocean-400 uppercase tracking-wider mb-1" id="questionCategoryNotice">
+                Unit 3 • Phrasal Verbs
+              </div>
+              <h3 id="questionTitle" class="text-base sm:text-xl font-bold text-white leading-relaxed font-sans">
+                Loading challenge question...
+              </h3>
+              <p id="questionHint" class="text-xs text-amber-200 mt-2.5 p-2 bg-amber-500/10 border border-amber-400/30 rounded-xl hidden font-medium">
+                💡 Tip from T. Hameeda: Focus on whether the verb requires a preposition or can separate.
+              </p>
+            </div>
+
+            <!-- Options Area (Chunky 3D clickable choices) -->
+            <div id="interactiveOptionsArea" class="space-y-2.5">
+              <!-- Dynamically populated buttons -->
+            </div>
+
+            <!-- Feedback Notification Banner with Phrasal Verb Meaning Box -->
+            <div id="feedbackBanner" class="hidden p-4 rounded-2xl text-xs sm:text-sm font-bold shadow-xl transition-all">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <span id="feedbackIcon" class="text-2xl mt-0.5"></span>
+                  <div class="space-y-1">
+                    <div id="feedbackText" class="leading-snug text-sm sm:text-base"></div>
+                    <div id="phrasalVerbMeaningBox" class="mt-2 p-2.5 rounded-xl bg-slate-950/70 border border-ocean-400/40 text-ocean-100 text-xs sm:text-sm font-medium">
+                      <!-- Verb and Meaning displayed here -->
+                    </div>
+                  </div>
+                </div>
+                <button id="nextQuestionBtn" onclick="handleNextQuestion()" class="hidden px-5 py-2.5 bg-white text-slate-900 font-chunky font-bold rounded-xl text-xs sm:text-sm hover:bg-ocean-50 active:scale-95 transition shadow-lg shrink-0">
+                  Continue ➡️
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 3. FINAL RESULTS SCREEN -->
+    <section id="resultsScreen" class="w-full hidden space-y-6 max-w-2xl text-center">
+      <div class="bg-slate-900/90 backdrop-blur-2xl border-2 border-ocean-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        
+        <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 bg-gradient-to-tr from-amber-300 via-sky-300 to-ocean-500 rounded-3xl p-1 shadow-2xl flex items-center justify-center text-4xl sm:text-5xl pulse-energetic border-2 border-white/40">
+          🏆
+        </div>
+
+        <h2 class="text-2xl sm:text-4xl font-chunky font-bold text-white mb-1">
+          Challenge Completed!
+        </h2>
+        <p class="text-ocean-300 font-semibold text-xs sm:text-sm mb-6">
+          Tremendous effort in Impact 3 English with Teacher Hameeda BuSakhar!
+        </p>
+
+        <!-- Final Performance Stats -->
+        <div class="grid grid-cols-3 gap-3 my-6">
+          <div class="bg-slate-950/80 p-3 sm:p-4 rounded-2xl border border-ocean-500/30">
+            <span class="text-[10px] sm:text-xs text-ocean-300 font-bold uppercase tracking-wider block">Total Score</span>
+            <span id="finalScoreDisplay" class="text-xl sm:text-3xl font-chunky font-bold text-white">20 / 20</span>
+          </div>
+          <div class="bg-slate-950/80 p-3 sm:p-4 rounded-2xl border border-ocean-500/30">
+            <span class="text-[10px] sm:text-xs text-ocean-300 font-bold uppercase tracking-wider block">Percentage</span>
+            <span id="finalPercentageDisplay" class="text-xl sm:text-3xl font-chunky font-bold text-sky-400">100%</span>
+          </div>
+          <div class="bg-slate-950/80 p-3 sm:p-4 rounded-2xl border border-ocean-500/30">
+            <span class="text-[10px] sm:text-xs text-ocean-300 font-bold uppercase tracking-wider block">Rating</span>
+            <span id="finalGradeDisplay" class="text-base sm:text-2xl font-chunky font-bold text-amber-300">Mastery</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button onclick="showCertificateModal()" class="btn-3d-blue px-6 py-3.5 text-white font-chunky font-bold rounded-2xl text-sm sm:text-base flex items-center gap-2">
+            <span>📜 View Certificate</span>
+          </button>
+          <button onclick="openLeaderboard()" class="px-5 py-3.5 bg-slate-800 hover:bg-slate-700 border border-ocean-500/30 text-ocean-200 font-bold rounded-2xl text-sm transition flex items-center gap-2">
+            <span>👑 Leaderboard</span>
+          </button>
+          <button onclick="location.reload()" class="px-4 py-3.5 bg-slate-950/70 hover:bg-slate-900 text-slate-300 font-bold rounded-2xl text-sm transition">
+            🔄 Try Again
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 4. OFFICIAL DIGITAL CERTIFICATE MODAL -->
+  <div id="certificateModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-3xl my-auto">
+      
+      <!-- Top Actions Bar -->
+      <div class="flex justify-end gap-2 mb-3 no-print">
+        <button onclick="printCertificate()" class="px-4 py-2.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg flex items-center gap-2 transition active:scale-95">
+          <span>🖨️ Print / Save as PDF</span>
+        </button>
+        <button onclick="closeCertificateModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs sm:text-sm rounded-xl shadow transition">
+          ✕ Close
+        </button>
+      </div>
+
+      <!-- Formal Certificate Card (Blue Theme) -->
+      <div id="certificateCard" class="bg-gradient-to-br from-white via-sky-50 to-blue-50 text-slate-900 rounded-3xl p-6 sm:p-10 border-8 border-double border-ocean-600 shadow-2xl relative overflow-hidden text-center">
+        
+        <!-- Corner Embellishments -->
+        <div class="absolute top-2 left-2 text-2xl text-ocean-600 select-none">✦</div>
+        <div class="absolute top-2 right-2 text-2xl text-ocean-600 select-none">✦</div>
+        <div class="absolute bottom-2 left-2 text-2xl text-ocean-600 select-none">✦</div>
+        <div class="absolute bottom-2 right-2 text-2xl text-ocean-600 select-none">✦</div>
+
+        <!-- Watermark -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none select-none">
+          <span class="text-8xl sm:text-9xl font-black text-ocean-950 uppercase font-serif">IMPACT 3</span>
+        </div>
+
+        <div class="relative z-10 space-y-4">
+          
+          <!-- Certificate Header -->
+          <div class="border-b-2 border-ocean-500/40 pb-3">
+            <span class="text-[11px] sm:text-xs font-bold text-ocean-800 uppercase tracking-widest block mb-1">
+              Kingdom of Bahrain • Ministry of Education • English Department
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-serif font-black text-ocean-950 tracking-wider uppercase">
+              Certificate of Excellence
+            </h2>
+            <p class="text-xs font-bold text-slate-500 tracking-widest uppercase mt-0.5">
+              Phrasal Verbs Mastery Quest
+            </p>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 italic">
+            This is proudly awarded to acknowledge that:
+          </p>
+
+          <div>
+            <h3 id="certStudentName" class="text-2xl sm:text-4xl font-serif font-black text-ocean-800 underline decoration-sky-400 decoration-wavy underline-offset-8">
+              Student Name
+            </h3>
+            <p id="certStudentClass" class="text-xs sm:text-sm font-semibold text-slate-600 mt-2">
+              Class: Grade 9
+            </p>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-700 max-w-xl mx-auto leading-relaxed">
+            has successfully demonstrated outstanding competence, precision, and dedication in completing the 
+            <strong>Impact 3 Phrasal Verbs Interactive Challenge</strong> based on the national curriculum with the distinguished score:
+          </p>
+
+          <!-- Score Shield -->
+          <div class="inline-flex items-center gap-3 bg-white border-2 border-ocean-400 px-6 py-2 rounded-2xl shadow-md my-1">
+            <span class="text-2xl">🎖️</span>
+            <div class="text-left">
+              <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Earned Score</span>
+              <span id="certScore" class="text-lg sm:text-2xl font-black text-ocean-900">20 / 20 (100%)</span>
+            </div>
+          </div>
+
+          <!-- Signatures Footer -->
+          <div class="grid grid-cols-2 pt-6 mt-4 border-t border-ocean-300 text-center text-xs sm:text-sm">
+            <div>
+              <span class="text-slate-500 block text-[11px]">Issue Date:</span>
+              <span id="certDate" class="font-bold text-slate-800">October 25, 2026</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block text-[11px]">Course Instructor:</span>
+              <span class="font-serif font-black text-ocean-900 text-sm sm:text-base">T. Hameeda BuSakhar</span>
+              <div class="text-[10px] text-ocean-600 font-bold">Certified English Educator ✍️</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. LEADERBOARD MODAL (GRADES HIDDEN, RANKED WITH MEDALS & CROWNS) -->
+  <div id="leaderboardModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border-2 border-ocean-500/30 rounded-3xl p-6 shadow-2xl text-center">
+      
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-ocean-500/20">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">👑</span>
+          <h3 class="font-chunky font-bold text-lg text-white">Honor Roll • Top Champions</h3>
+        </div>
+        <button onclick="closeLeaderboard()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <p class="text-xs text-ocean-200/80 mb-4 text-left">
+        Top ranking students recognized for prompt completion and accurate performance:
+      </p>
+
+      <!-- Students List (Ranked without numerical raw scores) -->
+      <div id="leaderboardList" class="space-y-2.5 max-h-80 overflow-y-auto pr-1 text-left">
+        <!-- Injected via JS -->
+      </div>
+
+      <button onclick="closeLeaderboard()" class="mt-5 w-full py-3 bg-ocean-600/30 hover:bg-ocean-600/50 border border-ocean-400/40 text-ocean-200 font-bold text-xs rounded-xl transition">
+        Close Leaderboard
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 w-full text-center py-3 text-xs text-ocean-300/60 border-t border-ocean-500/10">
+    Impact 3 Curriculum Support • Designed for English Learners • Prepared by <span class="text-ocean-200 font-semibold">T. Hameeda BuSakhar</span>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    /* =========================================================================
+       1. 20 GRADED QUESTIONS FROM IMPACT 3 (BAHRAIN EDITION)
+       Curriculum aligned: Student's Book Unit 3, Workbook, Audio Tracks & Reference
+       Gradual difficulty: Easy (1-7), Intermediate (8-14), Advanced (15-20)
+       Each with EXACTLY 4 options, the targeted verb, and clear meaning.
+       ========================================================================= */
+    const questions = [
+      // 1. Easy - Unit 3 Track 12 / Page 26
+      {
+        id: 1,
+        level: "Easy ⭐",
+        type: "multiple",
+        category: "Unit 3 • Animals & Collective Behaviour",
+        text: "Ants are remarkable insects; they always ______ the problem together.",
+        image: "https://images.unsplash.com/photo-1590452236967-b50a0494cf85?auto=format&fit=crop&w=600&q=80",
+        caption: "Ants cooperating to solve problems",
+        targetVerb: "work out",
+        meaning: "To find the solution or solve a problem together through reasoning or calculation.",
+        options: ["work out", "cut out", "put away", "fall down"],
+        answer: "work out"
+      },
+      // 2. Easy - Unit 3 Track 12 / Page 27
+      {
+        id: 2,
+        level: "Easy ⭐",
+        type: "multiple",
+        category: "Unit 3 • Animals & Nature",
+        text: "The huge elephants accidentally knocked some trees ______ in the forest.",
+        image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=600&q=80",
+        caption: "Elephant herd in the forest",
+        targetVerb: "knock over",
+        meaning: "To strike or push something causing it to fall to the ground.",
+        options: ["knock over", "knock into", "knock up", "knock away"],
+        answer: "knock over"
+      },
+      // 3. Easy - Unit 3 Track 12
+      {
+        id: 3,
+        level: "Easy ⭐",
+        type: "listening",
+        category: "Unit 3 • Safari & Nature Guide",
+        text: "Listen to the sentence: 'The safari guide ______ out the gorillas to the tourists.'",
+        audioSentence: "The safari guide pointed out the gorillas to the tourists.",
+        image: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80",
+        caption: "Safari tour guide observing wildlife",
+        targetVerb: "point out",
+        meaning: "To direct attention to someone or something so others notice them.",
+        options: ["pointed out", "knocked out", "carried out", "turned out"],
+        answer: "pointed out"
+      },
+      // 4. Easy - Unit 3 Track 12 / Page 26
+      {
+        id: 4,
+        level: "Easy ⭐",
+        type: "multiple",
+        category: "Unit 3 • Classroom Routines",
+        text: "Before leaving the science laboratory, the students always put ______ their books.",
+        image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80",
+        caption: "Returning books to shelves",
+        targetVerb: "put away",
+        meaning: "To store or return an item to its proper place after using it.",
+        options: ["put away", "put over", "put down", "put on"],
+        answer: "put away"
+      },
+      // 5. Easy - Unit 3 Track 12
+      {
+        id: 5,
+        level: "Easy ⭐",
+        type: "fill",
+        category: "Unit 3 • 3D Cinema Experience",
+        text: "Before the 3D wildlife movie started, the children put their glasses ______ .",
+        image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80",
+        caption: "Wearing 3D goggles for immersion",
+        targetVerb: "put on",
+        meaning: "To place clothes, accessories, or glasses onto your body or face.",
+        options: ["put on", "put out", "put over", "put up"],
+        answer: "put on"
+      },
+      // 6. Easy - Unit 1 Workbook Track 2
+      {
+        id: 6,
+        level: "Easy ⭐",
+        type: "multiple",
+        category: "Unit 1 • Family & Responsibility",
+        text: "I couldn't go to the cinema yesterday because I had to ______ my little brother.",
+        image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80",
+        caption: "Babysitting a younger sibling",
+        targetVerb: "look after",
+        meaning: "To take care of or attend to the needs of someone.",
+        options: ["look after", "look for", "break into", "turn out"],
+        answer: "look after"
+      },
+      // 7. Easy - Unit 3 Lesson Planner Page 50
+      {
+        id: 7,
+        level: "Easy ⭐",
+        type: "multiple",
+        category: "Unit 3 • Support & Friendship",
+        text: "When Sarah was feeling nervous about exams, her classmates brought cards to ______ her up.",
+        image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80",
+        caption: "Cheering up a friend",
+        targetVerb: "cheer up",
+        meaning: "To make someone feel noticeably happier and comforted.",
+        options: ["cheer", "calm", "hold", "point"],
+        answer: "cheer"
+      },
+      // 8. Intermediate - Unit 3 Page 50
+      {
+        id: 8,
+        level: "Intermediate ⭐⭐",
+        type: "fill",
+        category: "Unit 3 • Contagious Behaviour",
+        text: "Can you ______ that yawn? Contagious yawning is very hard to resist!",
+        image: "https://images.unsplash.com/photo-1584447128309-b66b7a4d1b63?auto=format&fit=crop&w=600&q=80",
+        caption: "Contagious human yawning",
+        targetVerb: "hold back",
+        meaning: "To restrain, suppress, or stop something from happening or showing.",
+        options: ["hold back", "carry out", "take over", "give in"],
+        answer: "hold back"
+      },
+      // 9. Intermediate - Unit 3 Lesson Planner p.51
+      {
+        id: 9,
+        level: "Intermediate ⭐⭐",
+        type: "multiple",
+        category: "Unit 3 • Emotional Control",
+        text: "Please take a deep breath and calm ______ before you answer the teacher's question.",
+        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
+        caption: "Breathing slowly to stay peaceful",
+        targetVerb: "calm down",
+        meaning: "To become quiet, relaxed, and peaceful after feeling agitated or upset.",
+        options: ["down", "up", "away", "over"],
+        answer: "down"
+      },
+      // 10. Intermediate - Unit 3 Grammar Separable Pronouns (p.26)
+      {
+        id: 10,
+        level: "Intermediate ⭐⭐",
+        type: "multiple",
+        category: "Unit 3 • Separable Verbs with Pronouns",
+        text: "The science students completed their swarm robotics assignment and ______ on time.",
+        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
+        caption: "Submitting school coursework",
+        targetVerb: "hand in",
+        meaning: "To submit or deliver completed schoolwork/documents to an authority.",
+        options: ["handed it in", "handed in it", "handed on it", "handed it out"],
+        answer: "handed it in"
+      },
+      // 11. Intermediate - Unit 3 Listening Practice (p.51)
+      {
+        id: 11,
+        level: "Intermediate ⭐⭐",
+        type: "listening",
+        category: "Unit 3 • Trust & Collaboration",
+        text: "Listen carefully: 'Good teammates can always rely ______ each other.'",
+        audioSentence: "Good teammates can always rely on each other during difficult projects.",
+        image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80",
+        caption: "Teammates working together",
+        targetVerb: "rely on",
+        meaning: "To depend on, trust, or count upon someone with full confidence.",
+        options: ["on", "with", "at", "about"],
+        answer: "on"
+      },
+      // 12. Intermediate - Workbook Unit 3 p.26
+      {
+        id: 12,
+        level: "Intermediate ⭐⭐",
+        type: "fill",
+        category: "Unit 3 • Art & Magazine Project",
+        text: "I found an inspiring article about Bahrain's Light-1 satellite and cut it ______ .",
+        image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80",
+        caption: "Cutting out magazine articles",
+        targetVerb: "cut out",
+        meaning: "To remove an item or shape from paper/fabric using scissors.",
+        options: ["out", "in", "down", "over"],
+        answer: "out"
+      },
+      // 13. Intermediate - Unit 4 Fashion Footprints Worksheet 3.4.8
+      {
+        id: 13,
+        level: "Intermediate ⭐⭐",
+        type: "multiple",
+        category: "Unit 4 • Identity & Fashion",
+        text: "Wearing bright recycled trainers helped Ahmed ______ from the crowd at the exhibition.",
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+        caption: "Standing out with unique fashion",
+        targetVerb: "stand out",
+        meaning: "To be distinctly prominent, easily noticed, or distinguished from others.",
+        options: ["stand out", "calm down", "fit in", "break into"],
+        answer: "stand out"
+      },
+      // 14. Intermediate - Unit 4 Cumulative Review Worksheet 3.4.8
+      {
+        id: 14,
+        level: "Intermediate ⭐⭐",
+        type: "multiple",
+        category: "Unit 4 • Group Belonging",
+        text: "Teenagers sometimes buy trendy clothes simply because they want to ______ with their peers.",
+        image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80",
+        caption: "Fitting in with a group of friends",
+        targetVerb: "fit in",
+        meaning: "To belong naturally, be accepted, or conform to a group.",
+        options: ["fit in", "stand out", "work out", "point out"],
+        answer: "fit in"
+      },
+      // 15. Advanced - Unit 3 Track 20
+      {
+        id: 15,
+        level: "Advanced ⭐⭐⭐",
+        type: "listening",
+        category: "Unit 3 • Flashmob Activity",
+        text: "Listen to the dialogue: 'When the music started, more and more people ______ .'",
+        audioSentence: "When the lively music started in the square, more and more people joined in.",
+        image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80",
+        caption: "People participating in a group event",
+        targetVerb: "join in",
+        meaning: "To participate or take part in an activity that others are already doing.",
+        options: ["joined in", "handed out", "broke into", "pointed out"],
+        answer: "joined in"
+      },
+      // 16. Advanced - Impact 3 Reference p.151 (Three-word phrasal verbs)
+      {
+        id: 16,
+        level: "Advanced ⭐⭐⭐",
+        type: "multiple",
+        category: "Impact 3 Reference • Three-word Verbs",
+        text: "Reem is extremely friendly and open-minded; she can easily ______ everyone in school.",
+        image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=600&q=80",
+        caption: "Friendly relationships at school",
+        targetVerb: "get along with",
+        meaning: "To enjoy a friendly, harmonious, and positive relationship with someone.",
+        options: ["get along with", "fall down with", "break into with", "keep down with"],
+        answer: "get along with"
+      },
+      // 17. Advanced - Workbook & Student's Book p.51 / Unit 8 Test
+      {
+        id: 17,
+        level: "Advanced ⭐⭐⭐",
+        type: "multiple",
+        category: "Unit 3 • Research & Investigation",
+        text: "The marine biologists decided to ______ the navigation system of humpback whales.",
+        image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=600&q=80",
+        caption: "Marine biologist researching ocean life",
+        targetVerb: "look into",
+        meaning: "To investigate, research, examine, or study the facts of a situation.",
+        options: ["look into", "put away", "knock over", "hold back"],
+        answer: "look into"
+      },
+      // 18. Advanced - Pronoun Rule in Phrasal Verbs
+      {
+        id: 18,
+        level: "Advanced ⭐⭐⭐",
+        type: "multiple",
+        category: "Grammar Mastery • Separable Rules",
+        text: "Which sentence is grammatically INCORRECT regarding separable phrasal verbs?",
+        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
+        caption: "Grammar analysis and rules",
+        targetVerb: "work out (separable)",
+        meaning: "Grammar Rule: When a separable phrasal verb takes an object pronoun ('it', 'them'), the pronoun MUST go between the verb and particle (e.g., 'worked it out', NOT 'worked out it').",
+        options: [
+          "The ants worked out it together.",
+          "The ants worked it out together.",
+          "The elephants knocked them over.",
+          "The students put them away."
+        ],
+        answer: "The ants worked out it together."
+      },
+      // 19. Advanced - Workbook p.106
+      {
+        id: 19,
+        level: "Advanced ⭐⭐⭐",
+        type: "fill",
+        category: "Impact 3 Reference • Security & Crime",
+        text: "The security team arrived right after someone attempted to break ______ the building.",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+        caption: "Security investigation",
+        targetVerb: "break into",
+        meaning: "To enter a building or room illegally or by using force.",
+        options: ["into", "over", "down", "out"],
+        answer: "into"
+      },
+      // 20. Advanced - Unit 3 Lesson Planner p.50 & Test Key
+      {
+        id: 20,
+        level: "Advanced ⭐⭐⭐",
+        type: "multiple",
+        category: "Unit 3 • Scientific Conclusions",
+        text: "It ______ that positive collective cheer reduces stress and boosts school performance.",
+        image: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=600&q=80",
+        caption: "Positive outcomes of group encouragement",
+        targetVerb: "turn out",
+        meaning: "To happen, develop, or be revealed to be true in the end.",
+        options: ["turns out", "breaks down", "puts off", "falls down"],
+        answer: "turns out"
+      }
+    ];
+
+    /* =========================================================================
+       2. LEADERBOARD REPOSITORY (GRADES HIDDEN, MEDALS & CROWNS)
+       ========================================================================= */
+    let leaderboard = [
+      { name: "Zainab Al-A'ali", classRoom: "Section 1", avatar: "👩‍🔬", rankTitle: "Grand Champion", crown: "👑" },
+      { name: "Fatima Al-Mansoor", classRoom: "Section 3", avatar: "⭐", rankTitle: "First Runner-up", crown: "🥈" },
+      { name: "Sara Boukhalaf", classRoom: "Section 2", avatar: "💡", rankTitle: "Elite Scholar", crown: "🥉" },
+      { name: "Noor Janahi", classRoom: "Section 5", avatar: "🌸", rankTitle: "Honor Roll", crown: "🎖️" },
+      { name: "Reem Al-Nuaimi", classRoom: "Section 4", avatar: "🎨", rankTitle: "Star Achiever", crown: "✨" },
+      { name: "Hawra Al-Basri", classRoom: "Section 8", avatar: "🌟", rankTitle: "Creative Mind", crown: "✨" }
+    ];
+
+    /* =========================================================================
+       3. EXPANDED PLAYFUL AUDIO SYNTHESIS (WEB AUDIO API)
+       ========================================================================= */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        if (type === 'correct') {
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            gain.connect(ctx.destination);
+            osc.connect(gain);
+
+            gain.gain.setValueAtTime(0, now + idx * 0.08);
+            gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.08 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.45);
+
+            osc.start(now + idx * 0.08);
+            osc.stop(now + idx * 0.08 + 0.45);
+          });
+
+        } else if (type === 'boing') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.35);
+
+          gain.connect(ctx.destination);
+          osc.connect(gain);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+
+          osc.start(now);
+          osc.stop(now + 0.35);
+
+        } else if (type === 'buzzer') {
+          [0, 0.15].forEach(offset => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(180, now + offset);
+            gain.connect(ctx.destination);
+            osc.connect(gain);
+
+            gain.gain.setValueAtTime(0.2, now + offset);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + offset + 0.12);
+
+            osc.start(now + offset);
+            osc.stop(now + offset + 0.12);
+          });
+
+        } else if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(950, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.06);
+          gain.connect(ctx.destination);
+          osc.connect(gain);
+
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+          osc.start(now);
+          osc.stop(now + 0.06);
+
+        } else if (type === 'fanfare') {
+          const chords = [
+            { f: 523.25, d: 0.15 },
+            { f: 659.25, d: 0.15 },
+            { f: 783.99, d: 0.2 },
+            { f: 1046.50, d: 0.55 }
+          ];
+          let time = now;
+          chords.forEach((note) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(note.f, time);
+            gain.connect(ctx.destination);
+            osc.connect(gain);
+
+            gain.gain.setValueAtTime(0.18, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+
+            osc.start(time);
+            osc.stop(time + note.d);
+            time += note.d * 0.85;
+          });
+        }
+      } catch (e) {
+        console.warn("Audio trigger waiting for user gesture.", e);
+      }
+    }
+
+    function toggleAudio() {
+      soundEnabled = !soundEnabled;
+      document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
+      document.getElementById("soundStatusText").textContent = soundEnabled ? "Sound On" : "Muted";
+    }
+
+    function speakSentence(rateValue = 0.85) {
+      const q = questions[currentQuestionIndex];
+      const sentenceToRead = q.audioSentence || q.text.replace(/______/g, "blank space");
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(sentenceToRead);
+        utterance.lang = 'en-GB';
+        utterance.rate = rateValue;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* Helper: Fisher-Yates array shuffler */
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    /* =========================================================================
+       4. GAMEPLAY FLOW
+       ========================================================================= */
+    let currentStudent = { name: "", classRoom: "" };
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let attemptsLeft = 2;
+
+    function startGame() {
+      const name = document.getElementById("studentNameInput").value.trim();
+      const studentClass = document.getElementById("studentClassSelect").value;
+      const errorBox = document.getElementById("loginError");
+
+      if (!name || !studentClass) {
+        errorBox.classList.remove("hidden");
+        playSound('boing');
+        return;
+      }
+
+      errorBox.classList.add("hidden");
+      currentStudent.name = name;
+      currentStudent.classRoom = studentClass;
+
+      playSound('click');
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("gameScreen").classList.remove("hidden");
+
+      document.getElementById("hudStudentName").textContent = currentStudent.name;
+      document.getElementById("hudStudentClass").textContent = currentStudent.classRoom;
+
+      currentQuestionIndex = 0;
+      score = 0;
+      updateHud();
+      loadQuestion();
+    }
+
+    function updateHud() {
+      document.getElementById("hudScore").textContent = score;
+      document.getElementById("hudAttempts").textContent = `${attemptsLeft} / 2`;
+      document.getElementById("hudProgressText").textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+      const percentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+      document.getElementById("progressBar").style.width = `${percentage}%`;
+    }
+
+    function loadQuestion() {
+      attemptsLeft = 2;
+      updateHud();
+
+      const q = questions[currentQuestionIndex];
+
+      // Hide and reset feedback
+      const feedback = document.getElementById("feedbackBanner");
+      feedback.className = "hidden p-4 rounded-2xl text-xs sm:text-sm font-bold shadow-xl transition-all";
+      document.getElementById("nextQuestionBtn").classList.add("hidden");
+      document.getElementById("phrasalVerbMeaningBox").innerHTML = "";
+
+      // Set meta labels
+      document.getElementById("questionDifficultyTag").textContent = q.level;
+      document.getElementById("questionCategoryNotice").textContent = q.category;
+      document.getElementById("questionTypeTag").textContent = 
+        q.type === 'listening' ? "🎧 Listening & Focus" : (q.type === 'fill' ? "✏️ Sentence Gap Fill" : "🔘 Multiple Choice");
+
+      // Set image and caption
+      document.getElementById("questionImage").src = q.image;
+      document.getElementById("imageCaption").textContent = q.caption;
+
+      // Sentence and hints
+      document.getElementById("questionTitle").textContent = q.text;
+      const hint = document.getElementById("questionHint");
+      hint.classList.add("hidden");
+
+      // Randomize options order so answer is NOT always in the same position
+      const randomizedOptions = shuffleArray(q.options);
+
+      // Populate choices
+      const optionsArea = document.getElementById("interactiveOptionsArea");
+      optionsArea.innerHTML = "";
+
+      const alphabet = ['A', 'B', 'C', 'D'];
+      randomizedOptions.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "btn-option-3d w-full p-3.5 sm:p-4 rounded-2xl border-2 border-ocean-500/20 text-left flex items-center justify-between text-sm sm:text-base font-bold text-white transition-all group";
+        btn.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-ocean-500/20 text-ocean-300 flex items-center justify-center text-xs font-chunky font-bold border border-ocean-400/40 group-hover:bg-ocean-500 group-hover:text-white transition">
+              ${alphabet[idx]}
+            </span>
+            <span class="tracking-wide">${opt}</span>
+          </div>
+          <span class="text-xs text-ocean-400 group-hover:text-white transition">Select 👉</span>
+        `;
+        btn.onclick = () => checkAnswer(opt, btn);
+        optionsArea.appendChild(btn);
+      });
+
+      // Auto pronounce listening tasks gently
+      if (q.type === 'listening') {
+        setTimeout(() => speakSentence(0.85), 500);
+      }
+    }
+
+    function checkAnswer(selectedOpt, btnElement) {
+      playSound('click');
+      const q = questions[currentQuestionIndex];
+      const isCorrect = selectedOpt.trim().toLowerCase() === q.answer.trim().toLowerCase();
+
+      const feedback = document.getElementById("feedbackBanner");
+      const fbText = document.getElementById("feedbackText");
+      const fbIcon = document.getElementById("feedbackIcon");
+      const meaningBox = document.getElementById("phrasalVerbMeaningBox");
+      const nextBtn = document.getElementById("nextQuestionBtn");
+
+      // Prepare clear phrasal verb meaning content
+      const meaningHTML = `
+        <div class="flex items-start gap-2">
+          <span class="text-sky-300 font-bold">📖 Phrasal Verb:</span>
+          <span class="text-white font-bold underline underline-offset-2">${q.targetVerb}</span>
+        </div>
+        <div class="mt-1 text-slate-200">
+          <span class="text-sky-300 font-bold">Meaning:</span> ${q.meaning}
+        </div>
+      `;
+
+      if (isCorrect) {
+        // Correct answer!
+        playSound('correct');
+        score += 1;
+        updateHud();
+
+        triggerConfettiCelebration();
+
+        btnElement.classList.remove("btn-option-3d");
+        btnElement.classList.add("bg-sky-500/30", "border-sky-400", "ring-2", "ring-sky-400/50");
+
+        feedback.className = "p-4 rounded-2xl text-xs sm:text-sm font-bold block shadow-xl bg-sky-500/20 border-2 border-sky-400/40 text-sky-100";
+        fbIcon.textContent = "🎉";
+        fbText.innerHTML = `Brilliant! Correct Answer!`;
+        meaningBox.innerHTML = meaningHTML;
+
+        disableAllButtons();
+        nextBtn.classList.remove("hidden");
+
+      } else {
+        // Wrong answer
+        attemptsLeft -= 1;
+        updateHud();
+
+        btnElement.classList.add("opacity-40", "line-through", "bg-rose-950/40", "border-rose-500/60");
+        btnElement.disabled = true;
+
+        if (attemptsLeft === 1) {
+          // 1 try remains
+          playSound('boing');
+          feedback.className = "p-4 rounded-2xl text-xs sm:text-sm font-bold block shadow-xl bg-amber-500/20 border-2 border-amber-400/40 text-amber-200";
+          fbIcon.textContent = "⚡";
+          fbText.textContent = "Not quite! You have 1 final try left. Read carefully!";
+          meaningBox.innerHTML = `
+            <div class="text-amber-100">
+              💡 <strong>Hint from T. Hameeda:</strong> Pay close attention to how this verb is used with its object!
+            </div>
+          `;
+          feedback.classList.remove("hidden");
+
+        } else {
+          // Out of tries
+          playSound('buzzer');
+          feedback.className = "p-4 rounded-2xl text-xs sm:text-sm font-bold block shadow-xl bg-rose-500/20 border-2 border-rose-400/40 text-rose-200";
+          fbIcon.textContent = "❌";
+          fbText.innerHTML = `No tries left! The correct answer was: <strong class="text-white underline font-bold">${q.answer}</strong>`;
+          meaningBox.innerHTML = meaningHTML;
+
+          disableAllButtons();
+          nextBtn.classList.remove("hidden");
+        }
+      }
+
+      feedback.classList.remove("hidden");
+    }
+
+    function disableAllButtons() {
+      const btns = document.querySelectorAll("#interactiveOptionsArea button");
+      btns.forEach(b => {
+        b.disabled = true;
+        b.classList.add("cursor-not-allowed");
+      });
+    }
+
+    function handleNextQuestion() {
+      playSound('click');
+      currentQuestionIndex += 1;
+
+      if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+      } else {
+        finishGame();
+      }
+    }
+
+    function triggerConfettiCelebration() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 45,
+          spread: 70,
+          origin: { y: 0.75 },
+          colors: ['#38bdf8', '#0ea5e9', '#60a5fa', '#f59e0b', '#ffffff']
+        });
+      }
+    }
+
+    function finishGame() {
+      playSound('fanfare');
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 100,
+          origin: { y: 0.6 },
+          colors: ['#38bdf8', '#0284c7', '#3b82f6', '#fbbf24', '#ffffff']
+        });
+      }
+
+      document.getElementById("gameScreen").classList.add("hidden");
+      document.getElementById("resultsScreen").classList.remove("hidden");
+
+      const percentage = Math.round((score / questions.length) * 100);
+      document.getElementById("finalScoreDisplay").textContent = `${score} / ${questions.length}`;
+      document.getElementById("finalPercentageDisplay").textContent = `${percentage}%`;
+
+      let gradeTitle = "Mastery & Distinction 🌟";
+      if (percentage < 65) gradeTitle = "Keep Practicing 🌺";
+      else if (percentage < 80) gradeTitle = "Very Good 👍";
+      else if (percentage < 90) gradeTitle = "Excellent Achiever 🎖️";
+      document.getElementById("finalGradeDisplay").textContent = gradeTitle;
+
+      // Add to the top of the leaderboard with highest honor
+      leaderboard.unshift({
+        name: currentStudent.name,
+        classRoom: currentStudent.classRoom,
+        avatar: "👑",
+        rankTitle: "Latest Quest Champion",
+        crown: "👑"
+      });
+      renderLeaderboard();
+    }
+
+    /* =========================================================================
+       5. DIGITAL CERTIFICATE MODAL
+       ========================================================================= */
+    function showCertificateModal() {
+      playSound('click');
+      const certModal = document.getElementById("certificateModal");
+
+      document.getElementById("certStudentName").textContent = currentStudent.name || "Outstanding Student";
+      document.getElementById("certStudentClass").textContent = `Class: ${currentStudent.classRoom || "Section 1"}`;
+
+      const pct = Math.round((score / questions.length) * 100);
+      document.getElementById("certScore").textContent = `${score} / ${questions.length} (${pct}%)`;
+
+      // Formatted date
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById("certDate").textContent = today.toLocaleDateString('en-GB', options);
+
+      certModal.classList.remove("hidden");
+      certModal.classList.add("flex");
+    }
+
+    function closeCertificateModal() {
+      playSound('click');
+      const certModal = document.getElementById("certificateModal");
+      certModal.classList.add("hidden");
+      certModal.classList.remove("flex");
+    }
+
+    function printCertificate() {
+      window.print();
+    }
+
+    /* =========================================================================
+       6. LEADERBOARD (GRADES CONCEALED, ONLY HONORS & MEDALS DISPLAYED)
+       ========================================================================= */
+    function renderLeaderboard() {
+      const listEl = document.getElementById("leaderboardList");
+      listEl.innerHTML = "";
+
+      leaderboard.forEach((item, index) => {
+        const row = document.createElement("div");
+        const isCurrent = (item.name === currentStudent.name);
+
+        row.className = `p-3 rounded-2xl border flex items-center justify-between transition-all ${
+          isCurrent 
+            ? "bg-ocean-500/25 border-ocean-400 shadow-lg ring-2 ring-ocean-400/30" 
+            : "bg-slate-950/70 border-ocean-500/20"
+        }`;
+
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-xl">${item.crown || '⭐'}</span>
+            <div class="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-lg border border-ocean-400/30">
+              ${item.avatar}
+            </div>
+            <div>
+              <div class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+                <span>${item.name}</span>
+                ${isCurrent ? '<span class="text-[10px] bg-sky-400 text-slate-950 px-1.5 py-0.5 rounded-md font-bold uppercase">You</span>' : ''}
+              </div>
+              <div class="text-[11px] text-ocean-300 font-medium">${item.classRoom}</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] font-chunky font-bold text-sky-300 bg-sky-500/10 px-2.5 py-1 rounded-xl border border-sky-400/30">
+              ${item.rankTitle}
+            </span>
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function openLeaderboard() {
+      playSound('click');
+      renderLeaderboard();
+      const modal = document.getElementById("leaderboardModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeLeaderboard() {
+      playSound('click');
+      const modal = document.getElementById("leaderboardModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    window.onload = function() {
+      renderLeaderboard();
+    };
+  </script>
+</body>
+</html>
